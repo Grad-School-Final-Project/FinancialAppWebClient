@@ -42,20 +42,29 @@ import Billing from "layouts/billing";
 import RTL from "layouts/rtl";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
-import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up";
+import SignIn from "unsecured/authentication/sign-in";
+import SignUp from "unsecured/authentication/sign-up";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
+import PrivateRoute from "./unsecured/authentication/keycloak/PrivateRoute";
 
 const routes = [
+  {
+    type: "collapse",
+    name: "Sign In",
+    key: "sign-in",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/authentication/sign-in",
+    component: <SignIn />,
+  },
   {
     type: "collapse",
     name: "Dashboard",
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
-    component: <Dashboard />,
+    component: <PrivateRoute><Dashboard/></PrivateRoute>,
   },
   {
     type: "collapse",
@@ -63,7 +72,7 @@ const routes = [
     key: "tables",
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
-    component: <Tables />,
+    component:<Tables/> ,
   },
   {
     type: "collapse",
@@ -97,14 +106,7 @@ const routes = [
     route: "/profile",
     component: <Profile />,
   },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
-  },
+
   {
     type: "collapse",
     name: "Sign Up",

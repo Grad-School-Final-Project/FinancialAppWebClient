@@ -36,15 +36,20 @@ import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 
 // Authentication layout components
-import BasicLayout from "layouts/authentication/components/BasicLayout";
+import BasicLayout from "unsecured/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+
+// keycloak stuff
+import { useKeycloak } from "@react-keycloak/web";
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
+  const { keycloak } = useKeycloak();
 
   return (
     <BasicLayout image={bgImage}>
@@ -102,7 +107,13 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton
+                  variant="gradient"
+                  color="info"
+                  fullWidth
+                  onClick={() => {
+                    keycloak.login()
+              }}>
                 sign in
               </MDButton>
             </MDBox>
