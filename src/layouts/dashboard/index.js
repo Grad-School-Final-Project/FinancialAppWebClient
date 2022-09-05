@@ -34,9 +34,12 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import callHelloWorldApi from "../../secured/api-requests/helloWorld";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+
+  callHelloWorldApi();
 
   return (
     <DashboardLayout>
