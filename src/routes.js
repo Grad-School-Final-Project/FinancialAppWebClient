@@ -49,6 +49,11 @@ import SignUp from "unsecured/authentication/sign-up";
 import Icon from "@mui/material/Icon";
 import PrivateRoute from "./unsecured/authentication/keycloak/PrivateRoute";
 import BankAccount from "./layouts/Bank Accounts";
+import AddAccount from "./layouts/addAccount";
+import AddTransaction from "./layouts/addTransaction";
+import AddCategory from "./layouts/addCategory";
+import ImportTransactions from "./layouts/importTransactions";
+import Transactions from "./layouts/Transactions";
 
 const routes = [
   {
@@ -77,6 +82,14 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Transactions",
+    key: "transactions",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/transactions",
+    component: <PrivateRoute><Transactions/></PrivateRoute>,
+  },
+  {
+    type: "collapse",
     name: "Notifications",
     key: "notifications",
     icon: <Icon fontSize="small">notifications</Icon>,
@@ -90,6 +103,46 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/authentication/sign-up",
+    component: <SignUp />,
+  },
+  {
+    type: "title",
+    name: "Add Account",
+    key: "add-account",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/addAccount",
+    component: <PrivateRoute><AddAccount></AddAccount></PrivateRoute>,
+  },
+  {
+    type: "title",
+    name: "Add Transaction",
+    key: "add-transaction",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/addTransaction",
+    component: <PrivateRoute><AddTransaction></AddTransaction></PrivateRoute>,
+  },
+  {
+    type: "title",
+    name: "Import Transactions",
+    key: "import-transactions",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/importTransactions",
+    component: <PrivateRoute><ImportTransactions></ImportTransactions></PrivateRoute>,
+  },
+  {
+    type: "title",
+    name: "Add Category",
+    key: "add-category",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/addCategory",
+    component: <PrivateRoute><AddCategory></AddCategory></PrivateRoute>,
   },
 ];
 

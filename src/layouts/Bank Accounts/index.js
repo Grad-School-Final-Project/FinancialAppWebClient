@@ -20,6 +20,8 @@ import Card from "@mui/material/Card";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import Cookies from "js-cookie";
+
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -45,7 +47,7 @@ class BankAccount extends Component{
 
     componentDidMount() {
 
-        getAccounts().then(value => {
+        getAccounts(Cookies.get("keycloak_auth_token"), Cookies.get("username"), Cookies.get("firstname"), Cookies.get("lastname")).then(value => {
             let sum = 0
             value.forEach(account => {sum+=account.value})
             this.setState({
@@ -57,6 +59,7 @@ class BankAccount extends Component{
 
 
         console.log(this.state.accounts)
+
     }
 
     render() {
@@ -72,13 +75,13 @@ class BankAccount extends Component{
                     opacity={1}
                     p={2}
                 >
-                    Total Cash: ${this.state.totalAccountValue}
+                    Total Cash: ${this.state.totalAccountValue.toLocaleString(navigator.language, { minimumFractionDigits: 2 })}
                 </MDBox>
                 <MDBox pt={6} pb={3}>
                     <Grid container spacing={6}>
                         {this.state.accounts.map((account) => (
                             <Grid item xs={12} md={6} xl={3}>
-                                <DefaultInfoCard icon="account_balance" title={account.nickname} description="" value={"$" + account.value}/>
+                                <DefaultInfoCard icon="account_balance" title={account.nickname} description="" value={"$" + account.value.toLocaleString(navigator.language, { minimumFractionDigits: 2 }) }/>
                             </Grid>
                         ))}
                     </Grid>
