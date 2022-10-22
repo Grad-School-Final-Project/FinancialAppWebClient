@@ -48,6 +48,12 @@ import SignUp from "unsecured/authentication/sign-up";
 // @mui icons
 import Icon from "@mui/material/Icon";
 import PrivateRoute from "./unsecured/authentication/keycloak/PrivateRoute";
+import BankAccount from "./layouts/Bank Accounts";
+import AddAccount from "./layouts/addAccount";
+import AddTransaction from "./layouts/addTransaction";
+import AddCategory from "./layouts/addCategory";
+import ImportTransactions from "./layouts/importTransactions";
+import Transactions from "./layouts/Transactions";
 
 const routes = [
   {
@@ -68,27 +74,19 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component:<Tables/> ,
+    name: "Bank Accounts",
+    key: "bankAccounts",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/bankAccounts",
+    component: <PrivateRoute><BankAccount/></PrivateRoute>,
   },
   {
     type: "collapse",
-    name: "Billing",
-    key: "billing",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/billing",
-    component: <Billing />,
-  },
-  {
-    type: "collapse",
-    name: "RTL",
-    key: "rtl",
-    icon: <Icon fontSize="small">format_textdirection_r_to_l</Icon>,
-    route: "/rtl",
-    component: <RTL />,
+    name: "Transactions",
+    key: "transactions",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/transactions",
+    component: <PrivateRoute><Transactions/></PrivateRoute>,
   },
   {
     type: "collapse",
@@ -106,14 +104,45 @@ const routes = [
     route: "/profile",
     component: <Profile />,
   },
-
   {
     type: "collapse",
     name: "Sign Up",
     key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
+    icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
+  },
+  {
+    type: "title",
+    name: "Add Account",
+    key: "add-account",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/addAccount",
+    component: <PrivateRoute><AddAccount></AddAccount></PrivateRoute>,
+  },
+  {
+    type: "title",
+    name: "Add Transaction",
+    key: "add-transaction",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/addTransaction",
+    component: <PrivateRoute><AddTransaction></AddTransaction></PrivateRoute>,
+  },
+  {
+    type: "title",
+    name: "Import Transactions",
+    key: "import-transactions",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/importTransactions",
+    component: <PrivateRoute><ImportTransactions></ImportTransactions></PrivateRoute>,
+  },
+  {
+    type: "title",
+    name: "Add Category",
+    key: "add-category",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/addCategory",
+    component: <PrivateRoute><AddCategory></AddCategory></PrivateRoute>,
   },
 ];
 

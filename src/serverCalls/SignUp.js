@@ -3,14 +3,15 @@
 
 async function userSignUp(username, firstName, lastName, email, password, navigate) {
     const uri = process.env.REACT_APP_SERVER_URL + "createUser"
+    console.log(firstName)
 
     console.log(process.env.REACT_APP_SERVER_URL)
     const body = {
         username: username,
         password: password,
         email: email,
-        firstName: firstName,
-        lastName: lastName
+        firstname: firstName,
+        lastname: lastName
     }
     const request = {
         method: 'POST',
