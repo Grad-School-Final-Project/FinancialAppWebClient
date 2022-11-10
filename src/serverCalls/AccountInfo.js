@@ -3,7 +3,7 @@ import DefaultInfoCard from "../examples/Cards/InfoCards/DefaultInfoCard";
 import AccountDTO from "./dto/AccountDTO";
 import axios from "axios";
 
-async function getAccounts(authToken, username, firstname, lastname) {
+async function getAccounts(authToken, username, firstname, lastname, accountType=["BANK", "CREDIT_CARD"]) {
     const uri = process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_ACCOUNT_API_PATH + process.env.REACT_APP_GET_USER_ACCOUNTS_PATH
 
     let body = {
@@ -26,7 +26,8 @@ async function getAccounts(authToken, username, firstname, lastname) {
     let json = await response.json()
     let accounts = JSON.parse(JSON.stringify(json))
     console.log(accounts)
-    accounts = accounts.filter(a => a["account_type"] === "BANK")
+
+    accounts = accounts.filter(a => accountType.includes(a["account_type"]) )
     console.log(accounts)
 
     // Now that we have the accounts, make a request to get the account balances.

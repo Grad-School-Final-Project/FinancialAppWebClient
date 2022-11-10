@@ -147,6 +147,10 @@ function Configurator() {
     navigate("/addCategory")
   }
 
+  const handleAddBudget = (e) => {
+    navigate("/addBudget")
+  }
+
   return (
     <ConfiguratorRoot variant="permanent" ownerState={{ openConfigurator }}>
       <MDBox
@@ -201,6 +205,12 @@ function Configurator() {
             <MDTypography variant="button" color="text">
               <MDButton color="dark"
                         variant="gradient" sx={sidenavTypeButtonsStyles} onClick={handleAddCategories} fullWidth>Add Categories</MDButton>
+            </MDTypography>
+          </MDBox>
+          <MDBox mb={0.5}>
+            <MDTypography variant="button" color="text">
+              <MDButton color="dark"
+                        variant="gradient" sx={sidenavTypeButtonsStyles} onClick={handleAddBudget} fullWidth>Add Budget</MDButton>
             </MDTypography>
           </MDBox>
         </MDBox>

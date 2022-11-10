@@ -54,6 +54,9 @@ import AddTransaction from "./layouts/addTransaction";
 import AddCategory from "./layouts/addCategory";
 import ImportTransactions from "./layouts/importTransactions";
 import Transactions from "./layouts/Transactions";
+import CreditAccounts from "./layouts/Credit Accounts";
+import AddBudget from "./layouts/addBudget";
+import Budgets from "./layouts/Budgets";
 
 const routes = [
   {
@@ -82,11 +85,27 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Credit Cards",
+    key: "creditAccounts",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/creditAccounts",
+    component: <PrivateRoute><CreditAccounts/></PrivateRoute>,
+  },
+  {
+    type: "collapse",
     name: "Transactions",
     key: "transactions",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/transactions",
     component: <PrivateRoute><Transactions/></PrivateRoute>,
+  },
+  {
+    type: "collapse",
+    name: "Budgets",
+    key: "budgets",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/budgets",
+    component: <PrivateRoute><Budgets/></PrivateRoute>,
   },
   {
     type: "collapse",
@@ -143,6 +162,14 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/addCategory",
     component: <PrivateRoute><AddCategory></AddCategory></PrivateRoute>,
+  },
+  {
+    type: "title",
+    name: "Add Budget",
+    key: "add-budget",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/addBudget",
+    component: <PrivateRoute><AddBudget></AddBudget></PrivateRoute>,
   },
 ];
 

@@ -34,20 +34,27 @@ import MDBadge from "../../components/MDBadge";
 import getAccounts from "../../serverCalls/AccountInfo"
 import {Component} from "react";
 import {useKeycloak} from "@react-keycloak/web";
+import HorizontalBarChart from "../../examples/Charts/BarCharts/HorizontalBarChart";
+import {PieChart} from "@mui/icons-material";
+import LinearProgress from "@mui/material/LinearProgress";
+import ComplexStatisticsCard from "../../examples/Cards/StatisticsCards/ComplexStatisticsCard";
+import {getRowData, getTableColumns} from "./BudgetData";
 
 
-class BankAccount extends Component{
+class Budgets extends Component{
     constructor(props) {
         super(props);
         this.state = {
             accounts : [],
-            totalAccountValue : 0
+            totalAccountValue : 0,
+            rows : [],
+            columns: getTableColumns()
         }
     }
 
     componentDidMount() {
 
-        getAccounts(Cookies.get("keycloak_auth_token"), Cookies.get("username"), Cookies.get("firstname"), Cookies.get("lastname"), ["BANK"]).then(value => {
+        getAccounts(Cookies.get("keycloak_auth_token"), Cookies.get("username"), Cookies.get("firstname"), Cookies.get("lastname"), "CREDIT_CARD").then(value => {
             let sum = 0
             value.forEach(account => {sum+=account.value})
             this.setState({
@@ -59,6 +66,11 @@ class BankAccount extends Component{
 
 
         console.log(this.state.accounts)
+
+        getRowData(Cookies.get("keycloak_auth_token"), Cookies.get("username"), Cookies.get("firstname"), Cookies.get("lastname"), this.handleEditTransaction).then(value =>{
+                this.setState({rows:value})
+            }
+        )
 
     }
 
@@ -75,16 +87,16 @@ class BankAccount extends Component{
                     opacity={1}
                     p={2}
                 >
-                    Total Cash: ${this.state.totalAccountValue.toLocaleString(navigator.language, { minimumFractionDigits: 2 })}
+                    Monthly Budgets
                 </MDBox>
                 <MDBox pt={6} pb={3}>
-                    <Grid container spacing={6}>
-                        {this.state.accounts.map((account) => (
-                            <Grid item xs={12} md={6} xl={3}>
-                                <DefaultInfoCard icon="account_balance" title={account.nickname} description="" value={"$" + account.value.toLocaleString(navigator.language, { minimumFractionDigits: 2 }) }/>
-                            </Grid>
-                        ))}
-                    </Grid>
+                    <DataTable table={{
+                        columns: this.state.columns,
+                        rows: this.state.rows
+                    }}
+                               defaultSortField="date"
+                               globalFilterFields={['account']}
+                    />
                 </MDBox>
                 <Footer/>
             </DashboardLayout>
@@ -92,4 +104,4 @@ class BankAccount extends Component{
     }
 }
 
-export default BankAccount;
+export default Budgets;
