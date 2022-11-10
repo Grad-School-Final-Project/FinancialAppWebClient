@@ -36,7 +36,7 @@ import {Component} from "react";
 import {useKeycloak} from "@react-keycloak/web";
 
 
-class BankAccount extends Component{
+class CreditAccount extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -47,7 +47,7 @@ class BankAccount extends Component{
 
     componentDidMount() {
 
-        getAccounts(Cookies.get("keycloak_auth_token"), Cookies.get("username"), Cookies.get("firstname"), Cookies.get("lastname"), ["BANK"]).then(value => {
+        getAccounts(Cookies.get("keycloak_auth_token"), Cookies.get("username"), Cookies.get("firstname"), Cookies.get("lastname"), "CREDIT_CARD").then(value => {
             let sum = 0
             value.forEach(account => {sum+=account.value})
             this.setState({
@@ -75,13 +75,13 @@ class BankAccount extends Component{
                     opacity={1}
                     p={2}
                 >
-                    Total Cash: ${this.state.totalAccountValue.toLocaleString(navigator.language, { minimumFractionDigits: 2 })}
+                    Total Credit Card Balance: ${this.state.totalAccountValue.toLocaleString(navigator.language, { minimumFractionDigits: 2 })}
                 </MDBox>
                 <MDBox pt={6} pb={3}>
                     <Grid container spacing={6}>
                         {this.state.accounts.map((account) => (
                             <Grid item xs={12} md={6} xl={3}>
-                                <DefaultInfoCard icon="account_balance" title={account.nickname} description="" value={"$" + account.value.toLocaleString(navigator.language, { minimumFractionDigits: 2 }) }/>
+                                <DefaultInfoCard icon="credit_card" title={account.nickname} description="" value={"$" + account.value.toLocaleString(navigator.language, { minimumFractionDigits: 2 }) }/>
                             </Grid>
                         ))}
                     </Grid>
@@ -92,4 +92,4 @@ class BankAccount extends Component{
     }
 }
 
-export default BankAccount;
+export default CreditAccount;
