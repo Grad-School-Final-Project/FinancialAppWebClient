@@ -58,6 +58,7 @@ import CreditAccounts from "./layouts/Credit Accounts";
 import AddBudget from "./layouts/addBudget";
 import Budgets from "./layouts/Budgets";
 import Stocks from "./layouts/Stocks";
+import AddStock from "./layouts/addStock";
 
 const routes = [
   {
@@ -67,14 +68,6 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
-  },
-  {
-    type: "collapse",
-    name: "Dashboard",
-    key: "dashboard",
-    icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/dashboard",
-    component: <PrivateRoute><Dashboard/></PrivateRoute>,
   },
   {
     type: "collapse",
@@ -116,22 +109,7 @@ const routes = [
     route: "/stocks",
     component: <PrivateRoute><Stocks/></PrivateRoute>,
   },
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
-  },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile",
-    component: <Profile />,
-  },
+
   {
     type: "collapse",
     name: "Sign Up",
@@ -179,6 +157,14 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/addBudget",
     component: <PrivateRoute><AddBudget></AddBudget></PrivateRoute>,
+  },
+  {
+    type: "title",
+    name: "Add Stock",
+    key: "add-stock",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/addStock",
+    component: <PrivateRoute><AddStock></AddStock></PrivateRoute>,
   },
 ];
 
