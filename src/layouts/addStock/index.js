@@ -47,6 +47,7 @@ import TextField from "@mui/material/TextField";
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import createTransaction from "../../serverCalls/CreateTransaction";
+import createStockTransaction from "../../serverCalls/CreateStockTransaction";
 
 const customStyles = (width = 100, height = 40) => {
     return {
@@ -69,30 +70,21 @@ class AddStock extends Component{
         this.state = {
             account : "",
             accounts : [],
-            category:"",
-            categories:[],
+            ticker:"",
             date : null,
-            amount: 0.0,
-            notes : ""
+            unitsPurchased: 0.0,
+            pricePerStock : 0.0
         }
     }
 
     componentDidMount() {
 
-        getAccounts(Cookies.get("keycloak_auth_token"), Cookies.get("username"), Cookies.get("firstname"), Cookies.get("lastname")).then(value => {
+        getAccounts(Cookies.get("keycloak_auth_token"), Cookies.get("username"), Cookies.get("firstname"), Cookies.get("lastname"), ["BROKERAGE"]).then(value => {
                 this.setState({
                     accounts : value
                 })
             }
         )
-
-        getCategories(Cookies.get("keycloak_auth_token"), Cookies.get("username"), Cookies.get("firstname"), Cookies.get("lastname"))
-            .then(value => {
-                    this.setState({
-                        categories : value
-                    })
-                }
-            )
     }
 
 
@@ -100,18 +92,14 @@ class AddStock extends Component{
         console.log(e.target.value)
         this.setState({account : e.target.value})
     }
-    handleCategoryChange = (e) => {
-        console.log(e.target.value)
-        this.setState({category : e.target.value})
-    }
+
     handleSubmitted = (e) => {
-        createTransaction(Cookies.get("keycloak_auth_token"),
+        createStockTransaction(Cookies.get("keycloak_auth_token"),
+            Cookies.get("username"),
             this.state.account.id,
-            this.state.category.id,
-            this.state.amount,
-            "USD",
-            this.state.description,
-            this.state.notes,
+            this.state.ticker,
+            this.state.unitsPurchased,
+            this.state.pricePerStock,
             this.state.date).then(status => {
 
             if(status > 0){
@@ -127,16 +115,16 @@ class AddStock extends Component{
         this.setState({date:e})
     }
 
-    handleAmountChanged = (e) =>{
-        this.setState({amount : e.target.value})
+    handleUnitsPurchasedChanged = (e) =>{
+        this.setState({unitsPurchased : e.target.value})
     }
 
-    handleNotesChanged = (e) => {
-        this.setState({notes:e.target.value})
+    handlePricePerStockChanged = (e) => {
+        this.setState({pricePerStock:e.target.value})
     }
 
-    handleDescriptionChanged = (e) =>{
-        this.setState({description:e.target.value})
+    handleTickerChanged = (e) =>{
+        this.setState({ticker:e.target.value})
     }
 
     render() {
@@ -175,29 +163,15 @@ class AddStock extends Component{
 
                                     </Select>
                                 </MDBox>
-
                             <MDBox mb={2}>
-                                <MDInput type="number" label="Amount" variant="standard" onChange={this.handleAmountChanged} fullWidth />
+                                <MDInput type="text" label="Ticker Symbol" variant="standard" onChange={this.handleTickerChanged} fullWidth />
                             </MDBox>
                             <MDBox mb={2}>
-                                <MDInput type="text" label="Description" variant="standard" onChange={this.handleDescriptionChanged}  fullWidth />
+                                <MDInput type="number" label="# Stocks Purchased" variant="standard" onChange={this.handleUnitsPurchasedChanged} fullWidth />
                             </MDBox>
-                            <MDBox mb={2}>
-                                <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={this.state.category}
-                                    label="Category"
-                                    onChange={this.handleCategoryChange}
 
-                                >
-                                    {this.state.categories.map(c => <MenuItem value={c}>{c["categoryName"]}</MenuItem>)}
-
-                                </Select>
-                            </MDBox>
                             <MDBox mb={2}>
-                                <MDInput type="text" label="Notes" variant="standard"  onChange={this.handleNotesChanged} fullWidth />
+                                <MDInput type="number" label="Price Per Stock" variant="standard" onChange={this.handlePricePerStockChanged} fullWidth />
                             </MDBox>
                             <MDBox mb={2}>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
