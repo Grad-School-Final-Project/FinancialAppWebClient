@@ -57,6 +57,7 @@ import Transactions from "./layouts/Transactions";
 import CreditAccounts from "./layouts/Credit Accounts";
 import AddBudget from "./layouts/addBudget";
 import Budgets from "./layouts/Budgets";
+import Stocks from "./layouts/Stocks";
 
 const routes = [
   {
@@ -106,6 +107,14 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/budgets",
     component: <PrivateRoute><Budgets/></PrivateRoute>,
+  },
+  {
+    type: "collapse",
+    name: "Stocks",
+    key: "stocks",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/stocks",
+    component: <PrivateRoute><Stocks/></PrivateRoute>,
   },
   {
     type: "collapse",
