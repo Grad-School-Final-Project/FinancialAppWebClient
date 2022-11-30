@@ -11,7 +11,7 @@ export function getTableColumns(){
     return columns
 }
 
-export async function getRowData(authToken, username, firstname, lastname, handleEditClicked){
+export async function getRowData(authToken, username, firstname, lastname, handleEditClicked, month){
     let rows = []
 
     let uri = process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_BUDGET_API_PATH + process.env.REACT_APP_GET_USER_BUDGETS
@@ -45,7 +45,7 @@ export async function getRowData(authToken, username, firstname, lastname, handl
 
     body = {
         budgetDTOs : json,
-        month : "AUGUST"
+        month : month
     }
     request = {
         method: 'POST',

@@ -48,7 +48,9 @@ class Budgets extends Component{
             accounts : [],
             totalAccountValue : 0,
             rows : [],
-            columns: getTableColumns()
+            columns: getTableColumns(),
+            currentMonth: new Date().toLocaleString(
+                'default', {month: 'long'})
         }
     }
 
@@ -67,7 +69,12 @@ class Budgets extends Component{
 
         console.log(this.state.accounts)
 
-        getRowData(Cookies.get("keycloak_auth_token"), Cookies.get("username"), Cookies.get("firstname"), Cookies.get("lastname"), this.handleEditTransaction).then(value =>{
+        getRowData(Cookies.get("keycloak_auth_token"),
+            Cookies.get("username"),
+            Cookies.get("firstname"),
+            Cookies.get("lastname"),
+            this.handleEditTransaction,
+            this.state.currentMonth.toUpperCase()).then(value =>{
                 this.setState({rows:value})
             }
         )
@@ -87,7 +94,7 @@ class Budgets extends Component{
                     opacity={1}
                     p={2}
                 >
-                    Monthly Budgets
+                    {this.state.currentMonth} Budget
                 </MDBox>
                 <MDBox pt={6} pb={3}>
                     <DataTable table={{
